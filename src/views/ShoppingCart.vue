@@ -36,30 +36,35 @@
                       </tr>
                     </thead>
                     <tbody>
-                  <template v-if="keranjangUser.length > 0">
-                    <tr v-for="keranjang in keranjangUser" :key="keranjang.id">
-                      <td class="cart-pic first-row">
-                        <img class="img-cart" :src="keranjang.photo" />
-                      </td>
-                      <td class="cart-title first-row text-center">
-                        <h5>{{ keranjang.name }}</h5>
-                      </td>
-                      <td class="p-price first-row">
-                        Rp.{{ keranjang.price }}
-                      </td>
-                      <td
-                        @click="removeItem(keranjangUser.index)"
-                        class="delete-item"
-                      >
-                        <a href="#"><i class="material-icons">close</i></a>
-                      </td>
-                    </tr>
-                  </template>
-                  <template v-else>
-                    <tr>
-                      <td colspan="4">Belanjaan kosong nih, belanja dulu yuk!</td>
-                    </tr>
-                  </template>
+                      <template v-if="keranjangUser.length > 0">
+                        <tr
+                          v-for="keranjang in keranjangUser"
+                          :key="keranjang.id"
+                        >
+                          <td class="cart-pic first-row">
+                            <img class="img-cart" :src="keranjang.photo" />
+                          </td>
+                          <td class="cart-title first-row text-center">
+                            <h5>{{ keranjang.name }}</h5>
+                          </td>
+                          <td class="p-price first-row">
+                            Rp.{{ keranjang.price }}
+                          </td>
+                          <td
+                            @click="removeItem(keranjangUser.index)"
+                            class="delete-item"
+                          >
+                            <a href="#"><i class="material-icons">close</i></a>
+                          </td>
+                        </tr>
+                      </template>
+                      <template v-else>
+                        <tr>
+                          <td colspan="4">
+                            Belanjaan kosong nih, belanja dulu yuk!
+                          </td>
+                        </tr>
+                      </template>
                     </tbody>
                   </table>
                 </div>
@@ -100,7 +105,7 @@
                         type="text"
                         maxlength="13"
                         minlength="10"
-                        class="form-control "
+                        class="form-control"
                         id="noHP"
                         aria-describedby="noHPHelp"
                         placeholder="Masukan No. HP"
@@ -129,7 +134,7 @@
                 <div class="proceed-checkout text-left">
                   <ul>
                     <li class="subtotal">
-                      <h4 style="text-align: center;">Detail Pembayaran</h4>
+                      <h4 style="text-align: center">Detail Pembayaran</h4>
                     </li>
                     <li class="subtotal mt-3">
                       Total Biaya <span>Rp. {{ totalHarga }}</span>
@@ -145,9 +150,15 @@
                     </li>
                   </ul>
                   <!-- <router-link to="/success"> -->
-                    <a @click="checkout()" href="#" class="proceed-btn" style="background-color:#007bff;">PAY</a>
-                          <!-- </router-link> -->
-                  </div>
+                  <a
+                    @click="checkout()"
+                    href="#"
+                    class="proceed-btn"
+                    style="background-color: #007bff"
+                    >PAY</a
+                  >
+                  <!-- </router-link> -->
+                </div>
               </div>
             </div>
           </div>
@@ -176,12 +187,11 @@ export default {
         name: "",
         email: "",
         number: "",
-        address: ""
-      }
+        address: "",
+      },
     };
   },
   methods: {
-
     removeItem(index) {
       this.keranjangUser.splice(index, 1);
       const parsed = JSON.stringify(this.keranjangUser);
@@ -189,26 +199,26 @@ export default {
     },
     // fungsinya untuk mengirim data ke API
     checkout() {
-      let productIds= this.keranjangUser.map(function(product) {
+      let productIds = this.keranjangUser.map(function (product) {
         return product.id;
       });
 
       let checkoutData = {
-        'name': this.customerInfo.name,
-        'email': this.customerInfo.email,
-        'number': this.customerInfo.number,
-        'address': this.customerInfo.address,
-        'transaction_total': this.totalHarga,
-        'transaction_status': 'PENDING',
-        'transaction_details': productIds
-      }
+        name: this.customerInfo.name,
+        email: this.customerInfo.email,
+        number: this.customerInfo.number,
+        address: this.customerInfo.address,
+        transaction_total: this.totalHarga,
+        transaction_status: "PENDING",
+        transaction_details: productIds,
+      };
       axios
-            .post("http://127.0.0.1:8000/api/checkout", checkoutData)
-            .then(() => this.$router.push("success"))
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+        .post("http://127.0.0.1:8000/api/checkout", checkoutData)
+        .then(() => this.$router.push("success"))
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
     if (localStorage.getItem("keranjangUser")) {
@@ -221,7 +231,7 @@ export default {
   },
   computed: {
     totalHarga() {
-      return this.keranjangUser.reduce(function(items, data) {
+      return this.keranjangUser.reduce(function (items, data) {
         return items + data.price;
       }, 0);
     },
