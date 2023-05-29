@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "0974d0b2-0da3-44d9-841b-9752691410ce",
+		"name": "UltracomAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27436825"
+	},
+	"item": [
+		{
+			"name": "Produk",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/products?id&limit&nameslug&type&price_from&price_to&page",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						},
+						{
+							"key": "limit",
+							"value": null
+						},
+						{
+							"key": "nameslug",
+							"value": null
+						},
+						{
+							"key": "type",
+							"value": null
+						},
+						{
+							"key": "price_from",
+							"value": null
+						},
+						{
+							"key": "price_to",
+							"value": null
+						},
+						{
+							"key": "page",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Popo\",\r\n    \"email\": \"popo@gmail.com\",\r\n    \"number\": \"0812176341\",\r\n    \"address\": \"Bondowoso\",\r\n    \"transaction_total\": 15000,\r\n    \"transaction_status\": \"PENDING\",\r\n    \"transaction_details\": [3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/checkout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaksi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/transactions/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"transactions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
